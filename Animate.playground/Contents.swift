@@ -33,6 +33,12 @@ public extension Animation {
             $0.center.y += y
         }
     }
+    
+    static func scale(toX x: CGFloat, y: CGFloat, duration: TimeInterval = 0.3) -> Animation {
+        return Animation(duration: duration) {
+            $0.transform = CGAffineTransform(scaleX: x, y: y)
+        }
+    }
 }
 
 public final class AnimationToken {
@@ -193,4 +199,19 @@ animate(
         .move(byX: 0, y: -50, duration: 3)
     ),
     button.animate(.fadeIn(duration: 3))
+)
+
+// MARK: - Scale view setup
+
+let redView = UIView(frame: CGRect(x: view.center.x - 50, y: 50, width: 100, height: 100))
+redView.backgroundColor = UIColor.red
+
+view.addSubview(redView)
+
+// MARK: - Scale view animation
+
+redView.animate(
+    .scale(toX: 1.1, y: 1.1, duration: 1),
+    .scale(toX: 0.95, y: 0.95, duration: 1),
+    .scale(toX: 1.0, y: 1.0, duration: 1)
 )
